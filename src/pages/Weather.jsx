@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import WeatherIcon from "../components/ui/WeatherIcon";
+import { useTitle } from "../hooks/useTitle";
 
 const testData = {
   temperature: "+28 °C",
@@ -38,6 +39,7 @@ const Weather = () => {
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(true);
   const param = useParams();
+  const setTitle = useTitle("Loading...");
 
   const fetchWeather = async () => {
     try {
@@ -45,6 +47,7 @@ const Weather = () => {
       // const res = await fetch("http://localhost:5000/weather/" + region).then(res => res.json());
       const res = testData;
       console.log(res);
+      setTitle(region);
       setWeather(res);
       setLoading(false);
     } catch (err) {

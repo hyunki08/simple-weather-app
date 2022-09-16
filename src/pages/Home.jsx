@@ -3,6 +3,7 @@ import styled from "styled-components";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
+import { useTitle } from "../hooks/useTitle";
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -24,15 +25,16 @@ const Form = styled.form`
 const Home = () => {
   const [value, setValue] = useState("");
   const navigate = useNavigate();
+  useTitle("Simple Weather App");
 
   const onChangeValue = e => {
     setValue(e.target.value);
   };
 
   const onClickSubmit = e => {
+    e.preventDefault();
     if (!value || value === "") {
       alert("지역을 입력하세요.");
-      e.preventDefault();
       return;
     }
 
