@@ -40,11 +40,11 @@ const WeatherIcon = ({ description, size, color }) => {
   else if (description === "Fog") return <WiFog size={size} color={color} />;
   else if (description === "Blizzard") return <WiSnow size={size} color={color} />;
   else if (description === "Blowing snow") return <WiSnow size={size} color={color} />;
-  else if (description === "Thundery outbreaks in nearby") return <WiThunderstorm size={size} color={color} />;
-  else if (description === "Patchy freezing drizzle nearby") return <WiSleet size={size} color={color} />;
-  else if (description === "Patchy sleet nearby") return <WiSleet size={size} color={color} />;
-  else if (description === "Patchy snow nearby") return <WiSleet size={size} color={color} />;
-  else if (description === "Patchy rain nearby") return <WiShowers size={size} color={color} />;
+  else if (description === "Thundery outbreaks in possible") return <WiThunderstorm size={size} color={color} />;
+  else if (description === "Patchy freezing drizzle possible") return <WiSleet size={size} color={color} />;
+  else if (description === "Patchy sleet possible") return <WiSleet size={size} color={color} />;
+  else if (description === "Patchy snow possible") return <WiSleet size={size} color={color} />;
+  else if (description === "Patchy rain possible") return <WiShowers size={size} color={color} />;
   else if (description === "Mist") return <WiFog size={size} color={color} />;
   else if (description === "Overcast") return <WiCloudy size={size} color={color} />;
   else if (description === "Cloudy") return <WiCloudy size={size} color={color} />;
