@@ -17,8 +17,9 @@ const App = () => {
       <GlobalStyle />
       <Nav />
       <Routes>
-        <Route path="/" element={<Home />} errorElement={<ErrorPage />} />
+        <Route path="/" element={<Home />} />
         <Route path="/weather/:region" element={<Weather />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );
