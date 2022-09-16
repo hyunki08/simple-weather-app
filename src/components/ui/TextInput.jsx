@@ -15,8 +15,8 @@ const StyledInput = styled.input`
   }
 `;
 
-const TextInput = ({ type = "text", height, width, placeholder }) => {
-  return <StyledInput type={type} height={height} width={width} placeholder={placeholder} />;
+const TextInput = ({ type = "text", height, width, placeholder, value, onChange }) => {
+  return <StyledInput type={type} height={height} width={width} placeholder={placeholder} onChange={onChange} value={value} />;
 };
 
 export default TextInput;
