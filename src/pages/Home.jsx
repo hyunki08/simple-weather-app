@@ -30,6 +30,12 @@ const Home = () => {
   };
 
   const onClickSubmit = e => {
+    if (!value || value === "") {
+      alert("지역을 입력하세요.");
+      e.preventDefault();
+      return;
+    }
+
     navigate("/weather/" + value);
   };
 
