@@ -8,8 +8,8 @@ const NavWrapper = styled.nav`
   background-color: #aac4ff;
   box-shadow: 1px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: left;
 
   @media (max-width: 768px) {
     height: 60px;
@@ -21,6 +21,7 @@ const HomeButton = styled.a`
   padding: 20px;
   font-size: 20px;
   font-weight: 800;
+  align-self: center;
   cursor: pointer;
 
   @media (max-width: 768px) {
