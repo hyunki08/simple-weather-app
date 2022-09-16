@@ -11,9 +11,9 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-const Button = ({ children, onClick, height, width }) => {
+const Button = ({ children, type = "button", onClick, height, width }) => {
   return (
-    <StyledButton height={height} width={width} onClick={onClick}>
+    <StyledButton type={type} height={height} width={width} onClick={onClick}>
       {children}
     </StyledButton>
   );

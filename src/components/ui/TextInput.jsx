@@ -16,7 +16,7 @@ const StyledInput = styled.input`
 `;
 
 const TextInput = ({ type = "text", height, width, placeholder, value, onChange }) => {
-  return <StyledInput type={type} height={height} width={width} placeholder={placeholder} onChange={onChange} value={value} />;
+  return <StyledInput type={type} height={height} width={width} placeholder={placeholder} value={value} onChange={onChange} />;
 };
 
 export default TextInput;
