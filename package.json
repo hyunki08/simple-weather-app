@@ -11,6 +11,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -18,8 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "startapi" : "docker run --name weatherapi -p 5000:3000 --rm -d weather-api",
-    "stopapi" : "docker stop weatherapi"
+    "startapi": "docker run --name weatherapi -p 5000:3000 --rm -d weather-api",
+    "stopapi": "docker stop weatherapi"
   },
   "eslintConfig": {
     "extends": [
