@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { EnvironmentOutlined } from "@ant-design/icons";
@@ -87,27 +87,26 @@ const WeatherForecast = styled.div`
 const Weather = () => {
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(true);
-  const params = useParams();
+  const { region } = useParams();
   const setTitle = useTitle("Loading...");
 
-  const fetchWeather = async () => {
+  const fetchWeather = useCallback(async () => {
     try {
-      const { region } = params;
       // const res = await fetch("http://localhost:5000/weather/" + encodeURI(region)).then(res => res.json());
       const res = testData;
-      console.log(res);
       setTitle(region);
       setWeather(res);
       setLoading(false);
     } catch (err) {
-      console.error(err);
+      console.log(err);
+      setLoading(false);
     }
-  };
+  }, [region, setTitle]);
 
   useEffect(() => {
-    if (!params || !params.region) return;
+    if (!region) return;
     fetchWeather();
-  }, []);
+  }, [region, fetchWeather]);
 
   return !loading ? (
     !!weather && !!weather.temperature && weather.temperature !== "" ? (
@@ -115,7 +114,7 @@ const Weather = () => {
         <GridElement area="region">
           <Region>
             <EnvironmentOutlined style={{ paddingTop: "5px" }} />
-            {params.region}
+            {region}
           </Region>
         </GridElement>
         <GridElement area="icon">
