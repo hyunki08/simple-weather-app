@@ -38,6 +38,10 @@ const SearchedRecordTitle = styled.div`
   font-weight: 600;
   color: #888;
   font-size: 18px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const SearchedRecordItem = styled.div`
