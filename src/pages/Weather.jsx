@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { EnvironmentOutlined } from "@ant-design/icons";
+import { EnvironmentOutlined, LoadingOutlined } from "@ant-design/icons";
 import WeatherIcon from "../components/ui/WeatherIcon";
 import { useTitle } from "../hooks/useTitle";
 import { RegionsContext } from "../context/regionContext";
+import Button from "../components/ui/Button";
 
 const testData = {
   temperature: "+28 °C",
@@ -31,16 +32,20 @@ const testData = {
 
 const WeatherWrapper = styled.div`
   display: grid;
+  justify-content: center;
   grid-template-areas:
     "region region region region region region"
-    "icon temperature temperature temperature temperature temperature"
-    "icon description description description description description"
+    "icon icon temperature temperature temperature temperature"
+    "icon icon description description description description"
     "line line line line line line"
     "forecast-0 forecast-0 forecast-1 forecast-1 forecast-2 forecast-2";
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(6, 100px);
   grid-template-rows: 0.8fr 1fr 1fr 0.1fr 1.3fr;
   gap: 5px;
-  padding: 15px 30% 0 30%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(6, 75px);
+  }
 `;
 
 const GridElement = styled.div`
@@ -85,11 +90,39 @@ const WeatherForecast = styled.div`
   gap: 5px;
 `;
 
+const NotFoundWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px 20px;
+  gap: 50px;
+`;
+
+const NotFoundTitle = styled.div`
+  font-size: 40px;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+`;
+
+const Loading = styled.div`
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+  font-size: 50px;
+  color: #888;
+`;
+
 const Weather = () => {
   const { addRegion } = useContext(RegionsContext);
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(true);
   const { region } = useParams();
+  const navigate = useNavigate();
   const setTitle = useTitle("Loading...");
 
   const fetchWeather = useCallback(async () => {
@@ -106,6 +139,10 @@ const Weather = () => {
     }
   }, [region, setTitle]);
 
+  const onClickGoHome = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     if (!region) return;
     fetchWeather();
@@ -120,7 +157,7 @@ const Weather = () => {
             {region}
           </Region>
         </GridElement>
-        <GridElement area="icon">
+        <GridElement area="icon" center>
           <WeatherIcon {...weather} size={130} />
         </GridElement>
         <GridElement area="temperature">
@@ -144,10 +181,17 @@ const Weather = () => {
         ))}
       </WeatherWrapper>
     ) : (
-      <div>Not Found</div>
+      <NotFoundWrapper>
+        <NotFoundTitle>"{region}"에 대한 날씨 정보를 확인할 수 없습니다.</NotFoundTitle>
+        <Button width={"200px"} height={"50px"} onClick={onClickGoHome}>
+          홈으로 가기
+        </Button>
+      </NotFoundWrapper>
     )
   ) : (
-    <div>Loading...</div>
+    <Loading>
+      <LoadingOutlined />
+    </Loading>
   );
 };
 
