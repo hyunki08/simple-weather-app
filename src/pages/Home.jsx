@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import { useTitle } from "../hooks/useTitle";
+import { RegionsContext } from "../context/regionContext";
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -22,7 +23,33 @@ const Form = styled.form`
   gap: 10px;
 `;
 
+const SearcedRecords = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+`;
+
+const SearchedRecordTitle = styled.div`
+  padding: 5px 15px;
+  font-weight: 600;
+  color: #888;
+  font-size: 18px;
+`;
+
+const SearchedRecordItem = styled.div`
+  padding: 5px 15px;
+  gap: 3px;
+  font-weight: 600;
+  color: #888;
+  font-size: 18px;
+  cursor: pointer;
+`;
+
 const Home = () => {
+  const { regions } = useContext(RegionsContext);
   const [value, setValue] = useState("");
   const navigate = useNavigate();
   useTitle("Simple Weather App");
@@ -41,6 +68,10 @@ const Home = () => {
     navigate("/weather/" + value);
   };
 
+  const onClickSearched = region => {
+    navigate("/weather/" + region);
+  };
+
   return (
     <HomeWrapper>
       <Form onSubmit={onClickSubmit}>
@@ -49,6 +80,16 @@ const Home = () => {
           검색
         </Button>
       </Form>
+      {!!regions && (
+        <SearcedRecords>
+          <SearchedRecordTitle>최근 검색 기록 :</SearchedRecordTitle>
+          {regions.map((region, index) => (
+            <SearchedRecordItem key={index} onClick={() => onClickSearched(region)}>
+              {region}
+            </SearchedRecordItem>
+          ))}
+        </SearcedRecords>
+      )}
     </HomeWrapper>
   );
 };

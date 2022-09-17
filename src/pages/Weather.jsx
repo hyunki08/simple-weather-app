@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { EnvironmentOutlined } from "@ant-design/icons";
 import WeatherIcon from "../components/ui/WeatherIcon";
 import { useTitle } from "../hooks/useTitle";
+import { RegionsContext } from "../context/regionContext";
 
 const testData = {
   temperature: "+28 °C",
@@ -85,6 +86,7 @@ const WeatherForecast = styled.div`
 `;
 
 const Weather = () => {
+  const { addRegion } = useContext(RegionsContext);
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(true);
   const { region } = useParams();
@@ -94,9 +96,10 @@ const Weather = () => {
     try {
       // const res = await fetch("http://localhost:5000/weather/" + encodeURI(region)).then(res => res.json());
       const res = testData;
-      setTitle(region);
       setWeather(res);
       setLoading(false);
+      setTitle(region);
+      addRegion(region);
     } catch (err) {
       console.log(err);
       setLoading(false);
