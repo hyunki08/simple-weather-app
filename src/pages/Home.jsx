@@ -5,6 +5,7 @@ import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import { useTitle } from "../hooks/useTitle";
 import { RegionsContext } from "../context/regionContext";
+import { CloseOutlined } from "@ant-design/icons";
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -40,8 +41,13 @@ const SearchedRecordTitle = styled.div`
 `;
 
 const SearchedRecordItem = styled.div`
-  padding: 5px 15px;
-  gap: 3px;
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+`;
+
+const SearchedRecordItemRegion = styled.div`
+  padding: 5px 2px 5px 15px;
   font-weight: 600;
   color: #888;
   font-size: 18px;
@@ -49,7 +55,7 @@ const SearchedRecordItem = styled.div`
 `;
 
 const Home = () => {
-  const { regions } = useContext(RegionsContext);
+  const { regions, removeRegion } = useContext(RegionsContext);
   const [value, setValue] = useState("");
   const navigate = useNavigate();
   useTitle("Simple Weather App");
@@ -72,6 +78,10 @@ const Home = () => {
     navigate("/weather/" + region);
   };
 
+  const onClickRemove = region => {
+    removeRegion(region);
+  };
+
   return (
     <HomeWrapper>
       <Form onSubmit={onClickSubmit}>
@@ -84,8 +94,9 @@ const Home = () => {
         <SearcedRecords>
           <SearchedRecordTitle>최근 검색 기록 :</SearchedRecordTitle>
           {regions.map((region, index) => (
-            <SearchedRecordItem key={index} onClick={() => onClickSearched(region)}>
-              {region}
+            <SearchedRecordItem key={index}>
+              <SearchedRecordItemRegion onClick={() => onClickSearched(region)}>{region}</SearchedRecordItemRegion>
+              <CloseOutlined onClick={() => onClickRemove(region)} style={{ color: "#888", cursor: "pointer", padding: "5px", fontSize: "14px" }} />
             </SearchedRecordItem>
           ))}
         </SearcedRecords>

@@ -28,6 +28,12 @@ const App = () => {
           setRegions(arr);
         }
       },
+      removeRegion: region => {
+        if (!regions || regions.length === 0) return;
+        if (!regions.includes(region)) return;
+        const index = regions.findIndex(v => v === region);
+        setRegions([...regions.slice(0, index), ...regions.slice(index + 1)]);
+      },
     }),
     [regions, setRegions],
   );
