@@ -7,29 +7,6 @@ import { useTitle } from "../hooks/useTitle";
 import { RegionsContext } from "../context/regionContext";
 import Button from "../components/ui/Button";
 
-const testData = {
-  temperature: "+28 °C",
-  wind: "4 km/h",
-  description: "Sunny",
-  forecast: [
-    {
-      day: "1",
-      temperature: "+29 °C",
-      wind: "8 km/h",
-    },
-    {
-      day: "2",
-      temperature: "27 °C",
-      wind: "24 km/h",
-    },
-    {
-      day: "3",
-      temperature: " °C",
-      wind: "22 km/h",
-    },
-  ],
-};
-
 const WeatherWrapper = styled.div`
   display: grid;
   justify-content: center;
@@ -127,12 +104,11 @@ const Weather = () => {
 
   const fetchWeather = useCallback(async () => {
     try {
-      // const res = await fetch("http://localhost:5000/weather/" + encodeURI(region)).then(res => res.json());
-      const res = testData;
+      const res = await fetch("http://localhost:5000/weather/" + encodeURI(region)).then(res => res.json());
       setWeather(res);
       setLoading(false);
       setTitle(region);
-      addRegion(region);
+      if (!!res && !!res.temperature && res.temperature !== "") addRegion(region);
     } catch (err) {
       console.log(err);
       setLoading(false);

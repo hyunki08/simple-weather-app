@@ -24,7 +24,6 @@ const App = () => {
         if (!arr.includes(region)) {
           if (arr.length === 5) arr.pop();
           arr.unshift(region);
-          console.log(arr);
           setRegions(arr);
         }
       },
